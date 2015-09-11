@@ -7,10 +7,10 @@
 
 @promospt.config ($routeProvider) ->
     $routeProvider
-        .otherwise({
+        .when('/', ({
             templateUrl: '../templates/home.tpl',
             controller: 'HomeCtrl'
-        })
+        }))
 
 @promospt.run(->
   console.log 'angular app running'
