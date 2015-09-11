@@ -9,6 +9,8 @@ class CreateDeals < ActiveRecord::Migration
         t.decimal :price
         t.integer :sum_votes
         t.integer :count_comments
+
+        t.timestamps null: false
     end
   end
 end

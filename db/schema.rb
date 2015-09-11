@@ -17,25 +17,31 @@ ActiveRecord::Schema.define(version: 20150910165609) do
   enable_extension "plpgsql"
 
   create_table "comments", force: :cascade do |t|
-    t.string  "content"
-    t.string  "username"
-    t.integer "deal_id"
+    t.string   "content"
+    t.string   "username"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "deal_id"
   end
 
   create_table "deals", force: :cascade do |t|
-    t.string  "title"
-    t.string  "slug"
-    t.string  "description"
-    t.string  "deal_url"
-    t.string  "img"
-    t.decimal "price"
-    t.integer "sum_votes"
-    t.integer "count_comments"
+    t.string   "title"
+    t.string   "slug"
+    t.string   "description"
+    t.string   "deal_url"
+    t.string   "img"
+    t.decimal  "price"
+    t.integer  "sum_votes"
+    t.integer  "count_comments"
+    t.datetime "created_at",     null: false
+    t.datetime "updated_at",     null: false
   end
 
   create_table "votes", force: :cascade do |t|
-    t.integer "vote"
-    t.integer "deal_id"
+    t.integer  "vote"
+    t.integer  "deal_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "comments", "deals"
