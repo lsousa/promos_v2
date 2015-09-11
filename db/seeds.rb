@@ -15,10 +15,12 @@ number_comments = number_deals * 50
 deal_list = []
 number_deals.times do |i|
     deal_list.push({
-        title: Faker::Commerce.product_name,
-        img: "//placehold.it/500x500",
-        price: Faker::Commerce.price,
-        description: Faker::Lorem.paragraphs(Random.rand(3..10)).join("\n")
+        :title => Faker::Commerce.product_name,
+        :slug => Faker::Internet.slug(nil, '-'),
+        :description => Faker::Lorem.paragraphs(Random.rand(3..10)).join("\n"),
+        :deal_url => Faker::Internet.url,
+        :img => "//placehold.it/500x500",
+        :price => Faker::Commerce.price
     })
 end
 deal_list = Deal.create(deal_list)
@@ -28,8 +30,8 @@ deal_list = Deal.create(deal_list)
 vote_list = []
 number_votes.times do |i|
     vote_list.push({
-        vote: Random.rand(-1..1),
-        deal: deal_list.sample
+        :vote => Random.rand(-1..1).to_i,
+        :deal => deal_list.sample
     })
 
     if vote_list.length % 100 == 0 || i == number_votes
@@ -42,8 +44,8 @@ end
 comment_list = []
 number_comments.times do |i|
     comment_list.push({
-        content: Faker::Lorem.paragraphs(Random.rand(1..3).join("\n")),
-        deal: deal_list.sample
+        :content => Faker::Lorem.paragraphs(Random.rand(1..3)).join("\n"),
+        :deal => deal_list.sample
     })
 
     if comment_list.length % 100 == 0 || i == number_comments
