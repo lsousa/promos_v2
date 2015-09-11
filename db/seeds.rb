@@ -30,7 +30,7 @@ deal_list = Deal.create(deal_list)
 vote_list = []
 number_votes.times do |i|
     vote_list.push({
-        :vote => Random.rand(-1..1).to_i,
+        :vote => [-1, 1].sample,
         :deal => deal_list.sample
     })
 
@@ -53,3 +53,12 @@ number_comments.times do |i|
         comment_list = []
     end
 end
+
+# populate the sum votes and count_comments
+connection = ActiveRecord::Base.connection()
+sql = <<-EOL
+    UPDATE deals SET sum_votes=(SELECT SUM(vote) FROM votes WHERE votes.deal_id=deals.id);
+    UPDATE deals SET count_comments=(SELECT COUNT(*) FROM comments WHERE comments.deal_id=deals.id);
+EOL
+connection.execute(sql)
+
